@@ -8,12 +8,14 @@ const {
   deletePost,
 } = require("../controllers/post");
 
-router.post("/", post);
-router.get("/getPostDetails", getPostDetails_withUserInfo);
+const protect = require("../middlewares/authMiddleware");
 
-router.get("/getPosts", getPosts);
-router.post("/updatePost/:id", updatePost);
+router.post("/", protect, post);
+router.get("/getPostDetails", protect, getPostDetails_withUserInfo);
 
-router.delete("/deletePost/:id", deletePost);
+router.get("/getPosts", protect, getPosts);
+router.post("/updatePost/:id", protect, updatePost);
+
+router.delete("/deletePost/:id", protect, deletePost);
 
 module.exports = router;
